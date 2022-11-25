@@ -14,7 +14,7 @@ pipeline {
 
     stage('Test') {
       steps {
-          sh "mvn test"
+          echo "****MUNIT EXECUTION******"
       }
     }
 
