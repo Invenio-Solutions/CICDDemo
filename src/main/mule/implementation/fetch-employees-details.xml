@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="fetch-employees-details" doc:id="23409bc2-fc80-43e0-8655-8dcb1224d3ef">
+	<logger level="INFO" doc:name="start-fetch-employees-details" doc:id="65b121e5-a58f-4bac-a751-b3c2fa49607a" message='#[flow.name ++ ": Started"]'/>
+		<ee:transform doc:name="transform-message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+[
+  {
+    userId: "rirani",
+    jobTitleName: "Developer",
+    firstName: "Romin",
+    lastName: "Irani",
+    employeeCode: "E1",
+    phoneNumber: "408-1234567",
+    emailAddress: "romin.k.irani@gmail.com"
+  }, 
+  {
+    userId: "nirani",
+    jobTitleName: "Developer",
+    firstName: "Neil",
+    lastName: "Irani",
+    employeeCode: "E2",
+    phoneNumber: "408-1111111",
+    emailAddress: "neilrirani@gmail.com"
+  }, 
+  {
+    userId: "thanks",
+    jobTitleName: "Program Directory",
+    firstName: "Tom",
+    lastName: "Hanks",
+    employeeCode: "E3",
+    phoneNumber: "408-2222222",
+    emailAddress: "tomhanks@gmail.com"
+  }
+]]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="end-fetch-employees-details" doc:id="707806a3-365a-44e5-8b5f-2b8bb749a7b3" message='#[flow.name ++ ": Completed"]'/>
+        
+</sub-flow>
+	</mule>

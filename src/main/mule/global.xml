@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+    <http:listener-config name="employee-api-http-listener-config">
+        <http:listener-connection host="0.0.0.0" port="${http.port}" />
+    </http:listener-config>
+    <apikit:config name="employee-api-config" api="resource::3f1cfa95-0d0f-4f9a-81c0-bcfaad9f7988:employee-api:1.0.1:raml:zip:employee-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="api-autodiscovery" doc:id="7690b815-5be6-4abf-ba20-9a1921054268" flowRef="employee-api-main" />
+	<configuration-properties doc:name="configuration-properties" doc:id="ab2a7f6d-fabd-44ba-9138-4e7fe5771429" file="config\common.yaml" />
+	<secure-properties:config name="secure-properties-config" doc:name="Secure Properties Config" doc:id="2e5203d9-6db0-4fb4-ae89-e92371f66b06" file="config/${mule.env}-properties.yaml" key="${mule.key}" />
+	<configuration-properties doc:name="Configuration properties" doc:id="b89594a8-8917-4084-a58f-b3f06a5fc5af" file="config/${mule.env}-properties.yaml" />
+</mule>

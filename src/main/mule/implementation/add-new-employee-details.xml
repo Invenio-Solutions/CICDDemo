@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="add-new-employee" doc:id="10a0131b-eda7-4c8e-8636-6adb7de88fde" >
+	<logger level="INFO" doc:name="start-add-new-employee-details" doc:id="1b76a8a1-cf18-4db8-b6fd-df41689d3de6" message='#[flow.name ++ ": Started"]'/>
+		<ee:transform doc:name="transform-message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  message: "The new employee added successfully"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="end-add-new-employee-details" doc:id="c6a2c497-d87a-4318-9a41-a37fdd9bd2d0" message='#[flow.name ++ ": Completed"]'/>
+        
+</sub-flow>
+	
+</mule>

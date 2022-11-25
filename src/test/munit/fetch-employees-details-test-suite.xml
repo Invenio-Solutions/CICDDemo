@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="fetch-employees-details-test-suite.xml" />
+	<munit:test name="fetch-employees-details-test-suite" doc:id="e1627667-400e-4cb1-b0d5-2f55921842b1" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="mock" doc:id="06d8e7cf-f8ef-468b-9b1d-a0e2b1af9064" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apikit-router" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-call flow="get:\v1\fetch-employees:employee-api-config" />
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="call-employee-api-main" doc:id="c8d109bc-03ad-4363-ad1b-7fc29a4e843d" name="employee-api-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="verify logger-call" doc:id="97a5e4de-64db-443a-b832-91fd75c13d57" processor="logger">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="end-fetch-employees-details" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
