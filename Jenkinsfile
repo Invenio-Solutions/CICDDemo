@@ -17,6 +17,13 @@ pipeline {
           echo "****MUNIT EXECUTION******"
       }
     }
+    stage('Sonarqube Analysis') {
+    steps {
+    	 withSonarQubeEnv('sonarqube 9.4') { 
+         sh "mvn sonar:sonar"
+    }
+    	}
+    }
 
      stage('Deployment') {
       steps {
