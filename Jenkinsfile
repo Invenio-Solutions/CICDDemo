@@ -19,11 +19,11 @@ pipeline {
       }
     }
     stage('Sonarqube Analysis') {
-    steps {
+     steps {
     	 withSonarQubeEnv('sonarqube 9.4') { 
          sh "mvn sonar:sonar"
     }
-    	}
+    }
     }
 
      stage('Deployment') {
@@ -42,7 +42,6 @@ pipeline {
     message: "Test Successful: employee-dev-api"
   )
   }
-  }
   failure {
     office365ConnectorSend (
     status: "FAILED",
@@ -51,6 +50,6 @@ pipeline {
     message: "Depolyment Failed: employee-dev-api"
   )
   }
-    }
-  
+    
+  }
 }
