@@ -34,9 +34,23 @@ pipeline {
     
   }
   post {
-        office365ConnectorWebhooks([
-            [name: "Office 365", url: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359", notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyAborted: true]
-        ])
+        success {
+    office365ConnectorSend (
+    status: "SUCCESS",
+    webhookUrl: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359",
+    color: '00ff00',
+    message: "Test Successful: employee-dev-api"
+  )
+  }
+  }
+  failure {
+    office365ConnectorSend (
+    status: "FAILED",
+    webhookUrl: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359",
+    color: '00ff00',
+    message: "Depolyment Failed: employee-dev-api"
+  )
+  }
     }
   
 }
