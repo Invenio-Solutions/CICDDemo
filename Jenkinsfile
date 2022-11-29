@@ -42,8 +42,8 @@ pipeline {
     message: "Deployment Successful: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
     factDefinitions: [[name: "developer", template: "${currentBuild.displayName}"],
                       [name: "view", template: "${currentBuild.absoluteUrl}"],
-                      [name:"date", template: "${TAG_DATE}],
-                      [name:"branch", template: "${BRANCH_NAME}]]
+                      [name:"date", template: "${TAG_DATE}"],
+                      [name:"branch", template: "${BRANCH_NAME}"]]
   )
   }
     failure {
@@ -54,8 +54,8 @@ pipeline {
     message: "Depolyment Failed: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}",
     factDefinitions: [[name: "developer", template: "${currentBuild.displayName}"],
                       [name: "view", template: "${currentBuild.absoluteUrl}"],
-                      [name:"date", template: "${TAG_DATE}],
-                      [name:"branch", template: "${BRANCH_NAME}]]
+                      [name:"date", template: "${TAG_DATE}"],
+                      [name:"branch", template: "${BRANCH_NAME}"]]
   )
 }
     
