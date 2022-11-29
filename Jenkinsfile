@@ -14,7 +14,7 @@ pipeline {
 
     stage('Test') {
       steps {
-          echo "****MUNIT EXECUTION******"
+          sh "mvn test"
       }
     }
     stage('Sonarqube Analysis') {
