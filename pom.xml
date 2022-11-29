@@ -129,6 +129,7 @@
 						<mule.env>munit</mule.env>
 						<mule.key>munitkeymunitkey</mule.key>
 					</systemPropertyVariables>
+					<runtimeVersion>4.3.0-20210622</runtimeVersion>
 				</configuration>
 			</plugin>
 		</plugins>
