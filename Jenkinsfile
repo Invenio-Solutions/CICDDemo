@@ -46,7 +46,10 @@ pipeline {
     message: "Deployment Successful: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
     factDefinitions: [[name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
                       [name: "view", template: "${currentBuild.absoluteUrl}"],
-                      [name: "developer", template: "${author}"]]
+                      [name: "developer", template: "${author}"],
+                      [name: "branch", template: "${GIT_BRANCH}"],
+                      [name: "user-email", template: "${user.email}"],
+                      [name: "commit", template: "${GIT_COMMIT}"]]
   )
   }
     failure {
@@ -57,7 +60,10 @@ pipeline {
     message: "Deployment Failed: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}",
     factDefinitions: [[name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
                       [name: "view", template: "${currentBuild.absoluteUrl}"],
-                      [name: "developer", template: "${author}"]]
+                      [name: "developer", template: "${author}"],
+                      [name: "branch", template: "${GIT_BRANCH}"],
+                      [name: "user-email", template: "${user.email}"],
+                      [name: "commit", template: "${GIT_COMMIT}"]]
   )
 }
     
