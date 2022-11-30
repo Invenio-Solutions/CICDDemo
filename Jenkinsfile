@@ -7,6 +7,7 @@ pipeline {
   environment {
   	PATH = "/opt/maven/bin:$PATH"
   	author = sh(returnStdout: true, script: "git log -1 --pretty=format:'%an'").trim()
+  	ANYPOINT_CREDS = credentials('ANYPOINT_CREDENTIALS')
   	
   }
   
@@ -31,8 +32,12 @@ pipeline {
     }
 
      stage('Deployment') {
+      environment {
+      	CLIENT_ID = credentials('DEV_CLIENT_ID')
+      	CLIENT_SECRET = credentials('DEV_CLIENT_SECRET')
+      }
       steps {
-            sh 'mvn -U -V -e -B -DskipTests -Pdev deploy -DmuleDeploy'
+            sh 'mvn -U -V -e -B -DskipTests -Pdev deploy -DmuleDeploy -Danypoint.username="%ANYPOINT_CREDS_USR%" -Danypoint.password="%ANYPOINT_CREDS_PSW%" -Danypoint.platform.client_id="%CLIENT_ID%" -Danypoint.platform.client_secret="%CLIENT_SECRET%"'
       }
     }
     
@@ -45,9 +50,8 @@ pipeline {
     color: '00ff00',
     message: "Deployment Successful: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
     factDefinitions: [[name: "Developer", template: "${author}"],
-                      [name: "Branch", template: "${GIT_BRANCH}"],
-                      [name: "Developer-email", template: "${GIT_COMMITTER_EMAIL}"],
-                      [name: "Commit", template: "${GIT_COMMIT}"],
+                      [name: "Branch", template: "dev"],
+                      [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
                       [name: "View", template: "${currentBuild.absoluteUrl}"]]
                       
                       
@@ -60,9 +64,8 @@ pipeline {
     color: '00ff00',
     message: "Deployment Failed: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}",
     factDefinitions: [[name: "Developer", template: "${author}"],
-                      [name: "Branch", template: "${GIT_BRANCH}"],
-                      [name: "Developer-email", template: "${GIT_COMMITTER_EMAIL}"],
-                      [name: "Commit", template: "${GIT_COMMIT}"],
+                      [name: "Branch", template: "dev"],
+                      [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
                       [name: "View", template: "${currentBuild.absoluteUrl}"]]
                       
                       

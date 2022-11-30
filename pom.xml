@@ -35,8 +35,6 @@
 								<properties>
 									<mule.env>dev</mule.env>
 									<mule.key>sdopassword12345</mule.key>
-									<anypoint.platform.client_id>35353e99d43f43e2b4029f0fe3874524</anypoint.platform.client_id>
-									<anypoint.platform.client_secret>082096136cE14EdCa227128d321D808C</anypoint.platform.client_secret>
 								</properties>
 							</armDeployment>
 						</configuration>
@@ -61,8 +59,6 @@
 								<properties>
 									<mule.env>sit</mule.env>
 									<mule.key>sdopassword12345</mule.key>
-									<anypoint.platform.client_id>88af0e1e495e4e96980b1cc3cd7571a3</anypoint.platform.client_id>
-									<anypoint.platform.client_secret>4F0b02426FA6488DaE464dad042fa39b</anypoint.platform.client_secret>
 								</properties>
 							</armDeployment>
 						</configuration>
@@ -87,13 +83,15 @@
 					<armDeployment>
 						<muleVersion>4.4.0</muleVersion>
 						<uri>https://anypoint.mulesoft.com</uri>
-						<username>fta-deployment</username>
-						<password>Generic123#</password>
+						<username>${anypoint.username}</username>
+						<password>${anypoint.password}</password>
 						<businessGroup>Invenio Business Solutions DWC - LLC\FTA</businessGroup>
 						<businessGroupId>3f1cfa95-0d0f-4f9a-81c0-bcfaad9f7988</businessGroupId>
 						<properties>
 							<anypoint.platform.analytics_base_uri>https://analytics-ingest.anypoint.mulesoft.com/</anypoint.platform.analytics_base_uri>
 							<anypoint.platform.base_uri>https://anypoint.mulesoft.com/</anypoint.platform.base_uri>
+							<anypoint.platform.client_id>${anypoint.platform.client_id}</anypoint.platform.client_id>
+							<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
 						</properties>
 					</armDeployment>
 				</configuration>
