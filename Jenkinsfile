@@ -3,6 +3,9 @@
 pipeline {
 	
   agent any
+  options {
+  timestamps ()
+  }
   
   environment {
   	PATH = "/opt/maven/bin:$PATH"
