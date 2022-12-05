@@ -46,7 +46,7 @@ pipeline {
 	
 	stage ('Peformance Testing') {
 	 steps { 
-		 sh '/opt/jmeter/bin/jmeter.sh -n -t "TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 174.129.60.153'
+		 sh '/opt/jmeter/bin/jmeter.sh -n -t "TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.16.181'
 	 }
 	}
     
