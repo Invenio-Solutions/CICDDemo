@@ -89,7 +89,6 @@ pipeline {
   )
 }
 	always {
-	{
 	emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 
 	Branch: ${GIT_BRANCH}
@@ -99,8 +98,8 @@ pipeline {
 
 	Check console output at $BUILD_URL to view the results.''', compressLog: true, postsendScript: '${DEFAULT_POSTSEND_SCRIPT}', presendScript: '${DEFAULT_PRESEND_SCRIPT}', recipientProviders: [buildUser(), contributor(), culprits(), previous(), developers(), requestor(), upstreamDevelopers()], replyTo: 'sarga.satheesh@inveniolsi.com', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sarga.satheesh@inveniolsi.com'
 		
-	}
-	{
+
+
     cleanWs()
     dir("${env.WORKSPACE}@tmp") {
       deleteDir()
@@ -111,7 +110,7 @@ pipeline {
     dir("${env.WORKSPACE}@script@tmp") {
       deleteDir()
     }
-  }
+  
     
   
 }
