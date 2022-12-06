@@ -46,8 +46,10 @@ pipeline {
 	
 	stage ('Peformance Testing') {
 	 steps {
-	 	 sh 'pwd' 
+	 	 path = sh 'pwd' 
+		 sh 'cd /opt/jmeter/bin'
 		 sh '/opt/jmeter/bin/jmeter.sh -n -t "TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
+		 sh 'cd $path'
 	 }
 	}
     
