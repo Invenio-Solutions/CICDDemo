@@ -11,6 +11,7 @@ pipeline {
   	PATH = "/opt/maven/bin:$PATH"
   	author = sh(returnStdout: true, script: "git log -1 --pretty=format:'%an'").trim()
   	ANYPOINT_CREDS = credentials('ANYPOINT_CREDENTIALS')
+	workspace = "/home/ec2-user/.jenkins/workspace/employee-dev-api"
   	
   }
   
@@ -46,10 +47,9 @@ pipeline {
 	
 	stage ('Peformance Testing') {
 	 steps {
-	 	 path = sh 'pwd' 
 		 sh 'cd /opt/jmeter/bin'
 		 sh '/opt/jmeter/bin/jmeter.sh -n -t "TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
-		 sh 'cd $path'
+		 sh 'cd $workspace'
 	 }
 	}
     
