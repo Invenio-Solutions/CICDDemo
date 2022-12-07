@@ -94,7 +94,7 @@ pipeline {
 				"project": [
 					"id": "10001"
 				],
-				"summary": "$currentBuild.projectName - $currentBuild.result",
+				"summary": "$currentBuild.projectName - Build # $currentBuild.number $currentBuild.result",
 				"issuetype": [
 					"id": "10005"
 				],
