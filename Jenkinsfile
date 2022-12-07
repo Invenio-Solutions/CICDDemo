@@ -102,7 +102,7 @@ pipeline {
 					"name": "Sarga Satheesh"
 				]]],
 	failOnError: true,
-	site: "https://secdevops-inveniolsi.atlassian.net/"
+	site: "invenio-jira"
   )
 
     
