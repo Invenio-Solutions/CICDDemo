@@ -101,7 +101,8 @@ pipeline {
 				"assignee": [
 					"name": "Sarga Satheesh"
 				]]],
-	failOnError: true
+	failOnError: true,
+	site: "https://secdevops-inveniolsi.atlassian.net/"
   )
 
     
