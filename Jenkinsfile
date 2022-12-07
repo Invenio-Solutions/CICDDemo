@@ -94,15 +94,13 @@ pipeline {
 				"project": [
 					"id": "10001"
 				],
-				"summary": "$currentBuild.projectName" - "$currentBuild.result",
+				"summary": ""$currentBuild.projectName" - "$currentBuild.result"",
 				"issuetype": [
 					"id": "10005"
 				],
 				"assignee": [
 					"name": "Sarga Satheesh"
-				],
-				"priority": [
-					"name" : "High"]]],
+				]]],
 	failOnError: true,
 	site: "invenio-jira"
   )
