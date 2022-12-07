@@ -49,7 +49,7 @@ pipeline {
 	 steps {
 		 dir("/opt/jmeter/bin"){
 		 sh 'pwd'
-		 sh './jmeter.sh -n -t "/home/ec2-user/.jenkins/employee-dev-api/TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
+		 sh './jmeter.sh -n -t "/home/ec2-user/.jenkins/workspace/employee-dev-api/TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
 		 sh 'pwd'
 		 }
 		 dir("${env.WORKSPACE}"){
