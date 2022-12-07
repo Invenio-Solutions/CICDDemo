@@ -49,7 +49,7 @@ pipeline {
 	 steps {
 		 dir("/opt/jmeter/bin"){
 		 sh 'pwd'
-		 sh './jmeter.sh -n -t "/home/ec2-user/.jenkins/workspace/employee-dev-api/TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
+		 sh './jmeter.sh -n -t "/home/ec2-user/.jenkins/workspace/TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
 		 sh 'pwd'
 		 }
 		 dir("${env.WORKSPACE}"){
@@ -57,6 +57,7 @@ pipeline {
 		 }
 	 }
 	}
+	
     
   }
   post {
@@ -87,6 +88,21 @@ pipeline {
                       
                       
   )
+  
+  
+  	steps {
+    def testIssue = [fields: [ // id or key must present for project.
+                               project: [id: '10001'],
+                               summary: 'New JIRA Created from Jenkins.',
+                               description: 'New JIRA Created from Jenkins.',
+                               issuetype: [id: Task],
+							   userName: 'Sarga Satheesh']]
+
+    response = jiraNewIssue issue: testIssue
+
+    echo response.successful.toString()
+    echo response.data.toString()
+  }
     }
   always {
 	emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
