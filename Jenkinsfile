@@ -60,9 +60,9 @@ pipeline {
 	 success {
 	   perfReport ( 
 	   	sourceDataFiles: '/opt/jmeter/bin/result.csv',
-	    compareBuildPrevious: 'true',
-	    excludeResponseTime: 'true',
-	    showTrendGraphs: 'true'
+	    compareBuildPrevious: true,
+	    excludeResponseTime: true,
+	    showTrendGraphs: true
 	    )
 	  }
 	 }
