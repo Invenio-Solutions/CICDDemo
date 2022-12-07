@@ -109,7 +109,7 @@ pipeline {
 					"id": "10005"
 				],
 				"assignee": [
-					"name": "Sarga Satheesh"
+					"id": "638edb035fce844d606cc313"
 				]]],
 	failOnError: true,
 	site: "invenio-jira"
