@@ -100,7 +100,7 @@ pipeline {
 				],
 				"assignee": [
 					"name": "Sarga Satheesh"
-				]]]
+				]]],
 	failOnError: true
   )
 
