@@ -90,7 +90,7 @@ pipeline {
   )
   
   
-  	steps {
+  	
     def testIssue = [fields: [ // id or key must present for project.
                                project: [id: '10001'],
                                summary: 'New JIRA Created from Jenkins.',
@@ -102,7 +102,7 @@ pipeline {
 
     echo response.successful.toString()
     echo response.data.toString()
-  }
+  
     }
   always {
 	emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
