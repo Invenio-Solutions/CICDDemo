@@ -56,6 +56,11 @@ pipeline {
 		 sh 'pwd'
 		 }
 	 }
+	 post {
+	 success {
+	   perfReport '/opt/jmeter/bin/result.csv'
+	  }
+	 }
 	}
  }
 	
