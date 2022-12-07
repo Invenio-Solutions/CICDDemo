@@ -1,9 +1,5 @@
 
-def testIssue = "[fields: [ project: [id: '10001'],
-                               summary: 'New JIRA Created from Jenkins.',
-                               description: 'New JIRA Created from Jenkins.',
-                               issuetype: [id: Task],
-							   userName: 'Sarga Satheesh']]"
+
 pipeline {
 	
   agent any
@@ -61,9 +57,8 @@ pipeline {
 		 }
 	 }
 	}
+ }
 	
-    
-  }
   post {
     success {
     office365ConnectorSend (
@@ -93,10 +88,14 @@ pipeline {
                       
   )
   
-    jiraNewIssue issue: "${testIssue}"
-
-    echo response.successful.toString()
-    echo response.data.toString()
+    jiraNewIssue (
+	issue: [fields: [  project: [id: '10001'],
+					   summary: 'New JIRA Created from Jenkins.',
+					   description: 'New JIRA Created from Jenkins.',
+					   issuetype: [id: Task],
+					   userName: 'Sarga Satheesh']],
+	failOnError: true
+  )
 
     
     }
