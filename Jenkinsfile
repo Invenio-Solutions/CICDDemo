@@ -90,7 +90,7 @@ pipeline {
   
     jiraNewIssue (
 					   
-	issue: "fields": {
+	issue: {"fields": {
 				"project": {
 					"id": "10001"
 				},
@@ -100,7 +100,7 @@ pipeline {
 				},
 				"assignee": {
 					"name": "Sarga Satheesh"
-				}}
+				}}}
 	failOnError: true
   )
 
