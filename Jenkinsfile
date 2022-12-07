@@ -58,7 +58,12 @@ pipeline {
 	 }
 	 post {
 	 success {
-	   perfReport '/opt/jmeter/bin/result.csv'
+	   perfReport ( 
+	   	sourceDataFiles: '/opt/jmeter/bin/result.csv',
+	    compareBuildPrevious: 'true',
+	    excludeResponseTime: 'true',
+	    showTrendGraphs: 'true'
+	    )
 	  }
 	 }
 	}
