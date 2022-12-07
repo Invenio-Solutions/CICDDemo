@@ -1,5 +1,10 @@
 
-
+def testIssue = [fields: [ 
+                               project: [id: '10001'],
+                               summary: 'New JIRA Created from Jenkins.',
+                               description: 'New JIRA Created from Jenkins.',
+                               issuetype: [id: Task],
+							   userName: 'Sarga Satheesh']]
 pipeline {
 	
   agent any
@@ -12,12 +17,7 @@ pipeline {
   	author = sh(returnStdout: true, script: "git log -1 --pretty=format:'%an'").trim()
   	ANYPOINT_CREDS = credentials('ANYPOINT_CREDENTIALS')
 	workspace = "/home/ec2-user/.jenkins/workspace/employee-dev-api"
-	testIssue = "[fields: [    project: [id: '10001'],
-                               summary: 'New JIRA Created from Jenkins.',
-                               description: 'New JIRA Created from Jenkins.',
-                               issuetype: [id: Task],
-							   userName: 'Sarga Satheesh']]"
-  	
+	
   }
   
   stages {
