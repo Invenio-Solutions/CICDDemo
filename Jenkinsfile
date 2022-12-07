@@ -94,13 +94,15 @@ pipeline {
 				"project": [
 					"id": "10001"
 				],
-				"summary": "New JIRA Created from Jenkins.",
+				"summary": "$PROJECT_NAME - $BUILD_STATUS",
 				"issuetype": [
 					"id": "10005"
 				],
 				"assignee": [
 					"name": "Sarga Satheesh"
-				]]],
+				],
+				"priority": [
+					"name" : "High"]]],
 	failOnError: true,
 	site: "invenio-jira"
   )
