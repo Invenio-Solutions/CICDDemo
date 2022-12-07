@@ -1,10 +1,10 @@
 
-def testIssue = [fields: [ 
+def testIssue = "[fields: [ 
                                project: [id: '10001'],
                                summary: 'New JIRA Created from Jenkins.',
                                description: 'New JIRA Created from Jenkins.',
                                issuetype: [id: Task],
-							   userName: 'Sarga Satheesh']]
+							   userName: 'Sarga Satheesh']]"
 pipeline {
 	
   agent any
@@ -94,7 +94,10 @@ pipeline {
                       
   )
   
-    
+    jiraNewIssue issue: "${testIssue}"
+
+    echo response.successful.toString()
+    echo response.data.toString()
 
     
     }
