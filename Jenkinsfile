@@ -90,17 +90,17 @@ pipeline {
   
     jiraNewIssue (
 					   
-	issue: ["fields": {
-				"project": {
+	issue: ["fields": [
+				"project": [
 					"id": "10001"
-				},
+				],
 				"summary": "New JIRA Created from Jenkins.",
-				"issuetype": {
+				"issuetype": [
 					"id": "10005"
-				},
-				"assignee": {
+				],
+				"assignee": [
 					"name": "Sarga Satheesh"
-				}}]
+				]]]
 	failOnError: true
   )
 
