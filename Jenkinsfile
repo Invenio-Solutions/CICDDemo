@@ -94,7 +94,7 @@ pipeline {
 			[update: "summary", fields: "New JIRA Created from Jenkins."],
 			[update: "description", fields: "New JIRA Created from Jenkins."],
 			[update: "issuetype", fields: "Task"],
-			[update: "userName", fields: "Sarga Satheesh"]]
+			[update: "userName", fields: "Sarga Satheesh"]],
 	failOnError: true
   )
 
