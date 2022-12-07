@@ -89,11 +89,12 @@ pipeline {
   )
   
     jiraNewIssue (
-	issue: [fields: [  project: [id: '10001'],
-					   summary: 'New JIRA Created from Jenkins.',
-					   description: 'New JIRA Created from Jenkins.',
-					   issuetype: [id: Task],
-					   userName: 'Sarga Satheesh']],
+					   
+	issue: [[update: "project", fields: "IN"],
+			[update: "summary", fields: "New JIRA Created from Jenkins."],
+			[update: "description", fields: "New JIRA Created from Jenkins."],
+			[update: "issuetype", fields: "Task"],
+			[update: "userName", fields: "Sarga Satheesh"]]
 	failOnError: true
   )
 
