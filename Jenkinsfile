@@ -1,6 +1,5 @@
 
-def testIssue = "[fields: [ 
-                               project: [id: '10001'],
+def testIssue = "[fields: [ project: [id: '10001'],
                                summary: 'New JIRA Created from Jenkins.',
                                description: 'New JIRA Created from Jenkins.',
                                issuetype: [id: Task],
