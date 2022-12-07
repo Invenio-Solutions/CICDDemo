@@ -94,7 +94,7 @@ pipeline {
                       
   )
   
-    jiraNewIssue issue: "${testIssue}"
+    
 
     
     }
