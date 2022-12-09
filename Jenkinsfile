@@ -77,7 +77,7 @@ pipeline {
     color: '00ff00',
     message: "Deployment Successful: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
     factDefinitions: [[name: "Developer", template: "${author}"],
-                      [name: "Branch", template: "dev"],
+                      [name: "Branch", template: ${GIT_BRANCH}],
                       [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
                       [name: "View", template: "${currentBuild.absoluteUrl}"]]
                       
@@ -91,7 +91,7 @@ pipeline {
     color: '00ff00',
     message: "Deployment Failed: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}",
     factDefinitions: [[name: "Developer", template: "${author}"],
-                      [name: "Branch", template: "dev"],
+                      [name: "Branch", template: ${GIT_BRANCH}],
                       [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
                       [name: "View", template: "${currentBuild.absoluteUrl}"]]
                       
