@@ -45,15 +45,11 @@ pipeline {
       }
     }
     stage('DAST') {
-    steps {
-    	sshagent(['zap-ssh']) {
-    		sh 'ssh -o StrictHostKeyChecking=no ec2-user@44.210.125.255 
-    		sh 'sudo su'
-    		sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t  http://3.95.213.97:8081/v1/fetch-employees'
-    		sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t  http://3.95.213.97:8081/v1/add-employees'
-    		
-    	}
-    }
+      steps {
+    	 sshagent(['zap-ssh']) {
+           sh 'ssh -o StrictHostKeyChecking=no ec2-user@44.210.125.255  "sudo docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.95.213.97:8081/v1/fetch-employees" || true'
+           sh 'ssh -o StrictHostKeyChecking=no ec2-user@44.210.125.255  "sudo docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.95.213.97:8081/v1/add-employees" || true'
+              		
     }
 	
 	stage ('Peformance Testing') {
