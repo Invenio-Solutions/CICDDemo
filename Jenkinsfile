@@ -21,12 +21,13 @@ pipeline {
             sh 'mvn -B -U -e -V clean -DskipTests package'
       }
     }
-
+    
     stage('Test') {
       steps {
           echo "*******MUNIT EXECUTION*******"
       }
     }
+    
     stage('Sonarqube Analysis') {
      steps {
     	 withSonarQubeEnv('sonarqube 9.4') { 
@@ -35,7 +36,7 @@ pipeline {
     }
     }
 
-     stage('Deployment') {
+    stage('Deployment') {
       environment {
       	CLIENT_ID = credentials('DEV_CLIENT_ID')
       	CLIENT_SECRET = credentials('DEV_CLIENT_SECRET')
@@ -44,12 +45,15 @@ pipeline {
             sh 'mvn -U -V -e -B -DskipTests -Pdev deploy -DmuleDeploy -Danypoint.username="$ANYPOINT_CREDS_USR" -Danypoint.password="$ANYPOINT_CREDS_PSW" -Danypoint.platform.client_id="$CLIENT_ID" -Danypoint.platform.client_secret="$CLIENT_SECRET"'
       }
     }
+    
     stage('DAST') {
       steps {
     	 sshagent(['zap-ssh']) {
            sh 'ssh -o StrictHostKeyChecking=no ec2-user@44.210.125.255  "sudo docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.95.213.97:8081/v1/fetch-employees" || true'
            sh 'ssh -o StrictHostKeyChecking=no ec2-user@44.210.125.255  "sudo docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.95.213.97:8081/v1/add-employees" || true'
               		
+            }
+        }
     }
 	
 	stage ('Peformance Testing') {
@@ -137,10 +141,7 @@ pipeline {
 
 
     cleanWs()
-    dir("${env.WORKSPACE}@tmp") {
-      deleteDir()
-    }
-    dir("${env.WORKSPACE}@script") {
+    dir("${env.WORKSPACE}@tmp")  ") {
       deleteDir()
     }
     dir("${env.WORKSPACE}@script@tmp") {
