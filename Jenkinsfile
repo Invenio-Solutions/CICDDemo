@@ -141,7 +141,10 @@ pipeline {
 
 
     cleanWs()
-    dir("${env.WORKSPACE}@tmp")  ") {
+    dir("${env.WORKSPACE}@tmp") {
+      deleteDir()
+    }
+    dir("${env.WORKSPACE}@script") {
       deleteDir()
     }
     dir("${env.WORKSPACE}@script@tmp") {
