@@ -60,7 +60,7 @@ pipeline {
 	 steps {
 		 dir("/opt/jmeter/bin"){
 		 sh 'pwd'
-		 sh './jmeter.sh -n -t "/home/ec2-user/.jenkins/workspace/employee-dev-api/TestPlan/Test Plan.jmx" -l "/opt/jmeter/bin/result.csv" -R 168.0.54.113'
+		 sh './jmeter.sh -n -t "/home/ec2-user/.jenkins/workspace/employee-dev-api/TestPlan/employee-dev-api.jmx" -l "/opt/jmeter/bin/dev-result.csv" -R 168.0.54.113'
 		 sh 'pwd'
 		 }
 		 dir("${env.WORKSPACE}"){
@@ -81,6 +81,7 @@ pipeline {
  }
 	
   post {
+    
     success {
     office365ConnectorSend (
     status: "${currentBuild.result} - ${currentBuild.fullDisplayName}",
@@ -137,21 +138,11 @@ pipeline {
 	Last Changes: ${CHANGES_SINCE_LAST_SUCCESS}
 
 	Check console output at $BUILD_URL to view the results.''', compressLog: true, postsendScript: '${DEFAULT_POSTSEND_SCRIPT}', presendScript: '${DEFAULT_PRESEND_SCRIPT}', recipientProviders: [buildUser(), contributor(), culprits(), previous(), developers(), requestor(), upstreamDevelopers()], replyTo: 'sarga.satheesh@inveniolsi.com', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sarga.satheesh@inveniolsi.com'
-		
 
-
-    cleanWs()
-    dir("${env.WORKSPACE}@tmp") {
-      deleteDir()
-    }
-    dir("${env.WORKSPACE}@script") {
-      deleteDir()
-    }
-    dir("${env.WORKSPACE}@script@tmp") {
-      deleteDir()
-    }
+    
     }
     
   
     }
+    
 }

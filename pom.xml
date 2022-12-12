@@ -66,6 +66,30 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>uat</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mule.tools.maven</groupId>
+						<artifactId>mule-maven-plugin</artifactId>
+						<version>${mule.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<armDeployment>
+								<target>sdo-uatserver</target>
+								<targetType>server</targetType>
+								<environment>UAT</environment>
+								<properties>
+									<mule.env>uat</mule.env>
+									<mule.key>sdopassword12345</mule.key>
+								</properties>
+							</armDeployment>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<build>
 		<plugins>
