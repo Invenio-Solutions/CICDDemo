@@ -81,6 +81,7 @@ pipeline {
  }
 	
   post {
+    
     success {
     office365ConnectorSend (
     status: "${currentBuild.result} - ${currentBuild.fullDisplayName}",
@@ -138,16 +139,7 @@ pipeline {
 
 	Check console output at $BUILD_URL to view the results.''', compressLog: true, postsendScript: '${DEFAULT_POSTSEND_SCRIPT}', presendScript: '${DEFAULT_PRESEND_SCRIPT}', recipientProviders: [buildUser(), contributor(), culprits(), previous(), developers(), requestor(), upstreamDevelopers()], replyTo: 'sarga.satheesh@inveniolsi.com', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sarga.satheesh@inveniolsi.com'
 
-    cleanWs()
-    dir("${env.WORKSPACE}@tmp") {
-      deleteDir()
-    }
-    dir("${env.WORKSPACE}@script") {
-      deleteDir()
-    }
-    dir("${env.WORKSPACE}@script@tmp") {
-      deleteDir()
-    }
+    
     }
     
   
