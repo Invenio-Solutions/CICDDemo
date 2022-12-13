@@ -83,6 +83,11 @@ pipeline {
   post {
     
     success {
+    script {
+               sh 'gh pr create --assignee "sarga-invenio" --base sit --head dev --title "Update the code from dev branch for the new commits" --body "To retrieve latest code from dev branch to sit branch"'
+            }
+        
+    
     office365ConnectorSend (
     status: "${currentBuild.result} - ${currentBuild.fullDisplayName}",
     webhookUrl: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359",
@@ -110,7 +115,7 @@ pipeline {
                       
   )
   
-    jiraNewIssue (
+    /*jiraNewIssue (
 					   
 	issue: ["fields": [
 				"project": [
@@ -125,7 +130,7 @@ pipeline {
 				]]],
 	failOnError: true,
 	site: "invenio-jira"
-  )
+  )*/
 
     
     }
@@ -142,6 +147,17 @@ pipeline {
     
     }
     
+    
+    cleanWs()
+    dir("${env.WORKSPACE}@tmp") {
+      deleteDir()
+    }
+    dir("${env.WORKSPACE}@script") {
+      deleteDir()
+    }
+    dir("${env.WORKSPACE}@script@tmp") {
+      deleteDir()
+    }
   
     }
     
