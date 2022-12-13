@@ -66,6 +66,30 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>uat</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mule.tools.maven</groupId>
+						<artifactId>mule-maven-plugin</artifactId>
+						<version>${mule.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<armDeployment>
+								<target>sdo-uatserver</target>
+								<targetType>server</targetType>
+								<environment>UAT</environment>
+								<properties>
+									<mule.env>uat</mule.env>
+									<mule.key>sdopassword12345</mule.key>
+								</properties>
+							</armDeployment>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<build>
 		<plugins>
@@ -129,35 +153,6 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.consol.citrus.mvn</groupId>
-				<artifactId>citrus-maven-plugin</artifactId>
-				<version>2.6.1</version>
-				<configuration>
-					<author>Donald Duck</author>
-					<targetPackage>com.consol.citrus</targetPackage>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.4.3</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-				<executions>
-					<execution>
-						<id>citrus-tests</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-						<sources>src/test/java</sources>
-							<skip>false</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -212,40 +207,6 @@
 			<artifactId>assertions</artifactId>
 			<version>1.0.2</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.consol.citrus.model</groupId>
-			<artifactId>citrus-model-core</artifactId>
-			<version>2.8.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.consol.citrus</groupId>
-			<artifactId>citrus-http</artifactId>
-			<version>3.3.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.consol.citrus</groupId>
-			<artifactId>citrus-java-dsl</artifactId>
-			<version>3.3.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.consol.citrus</groupId>
-			<artifactId>citrus-testng</artifactId>
-			<version>3.3.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.consol.citrus</groupId>
-			<artifactId>citrus-endpoints</artifactId>
-			<version>3.3.0</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>build-helper-maven-plugin</artifactId>
-			<version>3.3.0</version>
 		</dependency>
 	</dependencies>
 
