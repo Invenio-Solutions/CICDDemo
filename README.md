@@ -1,3 +1,3 @@
 # CICDDemo
 
-Repository for the DevSecOps Demo Project.
+Repository for DevSecOps Demo.
