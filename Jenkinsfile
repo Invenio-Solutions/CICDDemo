@@ -32,9 +32,11 @@ pipeline {
     
     stage('Test') {
       steps {
-          echo "*******MUNIT EXECUTION*******"
-      }
-    }
+           script {
+               sh 'mvn test'
+            }
+         }
+     }
 
     stage('Deployment') {
       environment {
@@ -54,6 +56,14 @@ pipeline {
               		
             }
         }
+    }
+    	
+    stage ('Integration-Testing') {
+    	steps {
+    		script {
+    			build 'dev-citrus-test'
+    		}
+    	}
     }
 	
 	stage ('Peformance Testing') {
