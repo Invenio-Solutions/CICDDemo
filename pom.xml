@@ -90,6 +90,30 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>prod</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mule.tools.maven</groupId>
+						<artifactId>mule-maven-plugin</artifactId>
+						<version>${mule.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<armDeployment>
+								<target>sdo-prodserver</target>
+								<targetType>server</targetType>
+								<environment>PROD</environment>
+								<properties>
+									<mule.env>prod</mule.env>
+									<mule.key>sdopassword12345</mule.key>
+								</properties>
+							</armDeployment>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<build>
 		<plugins>
