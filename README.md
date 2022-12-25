@@ -1,4 +1,4 @@
 # CICDDemo
 
-Repository for the DevSecOps Demo Project.!!!!
- This is SIT branch!
+Repository for DevSecOps Demo.
+
