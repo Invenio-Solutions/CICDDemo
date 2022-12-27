@@ -12,6 +12,8 @@ pipeline {
   	author = sh(returnStdout: true, script: "git log -1 --pretty=format:'%an'").trim()
   	ANYPOINT_CREDS = credentials('ANYPOINT_CREDENTIALS')
 	workspace = "/home/ec2-user/.jenkins/workspace/employee-dev-api"
+	invenioTeams = "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359"
+	
 	
   }
   
@@ -30,11 +32,13 @@ pipeline {
     	}
     }
     
-    stage('Test') {
+    stage('Unit Testing') {
       steps {
-          echo "*******MUNIT EXECUTION*******"
-      }
-    }
+           script {
+               sh 'mvn test'
+            }
+         }
+     }
 
     stage('Deployment') {
       environment {
@@ -54,6 +58,14 @@ pipeline {
               		
             }
         }
+    }
+    	
+    stage ('Integration-Testing') {
+    	steps {
+    		script {
+    			build 'dev-citrus-test'
+    		}
+    	}
     }
 	
 	stage ('Peformance Testing') {
@@ -87,55 +99,30 @@ pipeline {
                sh 'gh pr create --assignee "sarga-invenio" --base sit --head dev --title "Update the code from dev branch for the new commits" --body "To retrieve latest code from dev branch to sit branch"'
             }
         
-    
-    office365ConnectorSend (
-    status: "${currentBuild.result} - ${currentBuild.fullDisplayName}",
-    webhookUrl: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359",
-    color: '00ff00',
-    message: "Deployment Successful: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
-    factDefinitions: [[name: "Developer", template: "${author}"],
-                      [name: "Branch", template: "${GIT_BRANCH}"],
-                      [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
-                      [name: "View", template: "${currentBuild.absoluteUrl}"]]
-                      
-                      
-  )
   }
    failure {
-    office365ConnectorSend (
-    status: "${currentBuild.result} - ${currentBuild.fullDisplayName}",
-    webhookUrl: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359",
-    color: '00ff00',
-    message: "Deployment Failed: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}",
-    factDefinitions: [[name: "Developer", template: "${author}"],
-                      [name: "Branch", template: "${GIT_BRANCH}"],
-                      [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
-                      [name: "View", template: "${currentBuild.absoluteUrl}"]]
-                      
-                      
-  )
   
-    /*jiraNewIssue (
+    jiraNewIssue (
 					   
 	issue: ["fields": [
 				"project": [
-					"id": "10001"
+					"id": "10063"
 				],
 				"summary": "$currentBuild.projectName - Build # $currentBuild.number $currentBuild.result",
 				"issuetype": [
-					"id": "10005"
+					"id": "10002"
 				],
 				"assignee": [
-					"id": "638edb035fce844d606cc313"
+					"id": "637cc070213a315af346a1c0"
 				]]],
 	failOnError: true,
-	site: "invenio-jira"
-  )*/
+	site: "inveniolsi-jira"
+  )
 
     
     }
   always {
-	emailext attachLog: true, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+	emailext attachLog: false, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 
 	Branch: ${GIT_BRANCH}
 	Commit-ID: ${GIT_REVISION}
@@ -144,6 +131,19 @@ pipeline {
 
 	Check console output at $BUILD_URL to view the results.''', compressLog: true, postsendScript: '${DEFAULT_POSTSEND_SCRIPT}', presendScript: '${DEFAULT_PRESEND_SCRIPT}', recipientProviders: [buildUser(), contributor(), culprits(), previous(), developers(), requestor(), upstreamDevelopers()], replyTo: 'sarga.satheesh@inveniolsi.com', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'sarga.satheesh@inveniolsi.com'
 
+    
+    office365ConnectorSend (
+    status: "${currentBuild.result} - ${currentBuild.fullDisplayName}",
+    webhookUrl: "${invenioTeams}",
+    /*webhookUrl: "https://invenio12.webhook.office.com/webhookb2/112429ff-03d1-4ee5-8491-b305a1a36343@e83d39e6-f19d-49ca-8261-07ae0659a01c/IncomingWebhook/986dd2893e3246b9ae566d36ffcb2ee1/65055d5d-72d7-4ac0-88d8-1262dbc14359",*/
+    color: '00ff00',
+    message: "Deployment ${currentBuild.result}: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
+    factDefinitions: [[name: "Developer", template: "${author}"],
+                      [name: "Branch", template: "${GIT_BRANCH}"],
+                      [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
+                      [name: "View", template: "${currentBuild.absoluteUrl}"]]
+                      
+    )
     
     dir("${env.WORKSPACE}@tmp") {
       deleteDir()
