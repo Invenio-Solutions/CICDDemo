@@ -122,6 +122,13 @@ pipeline {
     
     }
   always {
+  
+  		script {
+  			def millis = ("${currentBuild.startTimeInMillis}").toLong()
+            time = new Date(millis).format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            echo "${time}"
+                    
+  		}
 	emailext attachLog: false, body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
 
 	Branch: ${GIT_BRANCH}
@@ -140,7 +147,7 @@ pipeline {
     message: "Deployment ${currentBuild.result}: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}",
     factDefinitions: [[name: "Developer", template: "${author}"],
                       [name: "Branch", template: "${GIT_BRANCH}"],
-                      [name: "StartTime", template: "${currentBuild.startTimeInMillis}"],
+                      [name: "StartTime", template: "${time}"],
                       [name: "View", template: "${currentBuild.absoluteUrl}"]]
                       
     )
